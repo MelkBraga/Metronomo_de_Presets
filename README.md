@@ -1,1 +1,1 @@
-# Metronomo_de_Presets
+O programa está documentado no arquivo PDF anexado ao repositório.
