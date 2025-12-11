@@ -80,79 +80,79 @@ int zigzag_map(int row, int col) {
     }
 }
 
-// Exibe um número de 0 a 9 na matriz de LEDs
+// Exibe um número invertido de 0 a 9 na matriz de LEDs
 void exibir_numero(int num) {
     npClear();
 
-    const uint8_t numeros[10][5][5] = {  
-        { // Número 0
+    const uint8_t numeros[10][5][5] = {
+        { // Número 0 invertido
             {0,1,1,1,0},
             {1,0,0,0,1},
             {1,0,0,0,1},
             {1,0,0,0,1},
             {0,1,1,1,0}
         },
-        { // Número 1
+        { // Número 1 invertido
+            {1,1,1,1,1},
             {0,0,1,0,0},
-            {0,1,1,0,0},
-            {1,0,1,0,0},
-            {0,0,1,0,0},
-            {1,1,1,1,1}
-        },
-        { // Número 2
-            {1,1,1,1,1},
-            {0,0,0,0,1},
-            {1,1,1,1,1},
-            {1,0,0,0,0},
-            {1,1,1,1,1}
-        },
-        { // Número 3
-            {1,1,1,1,1},
-            {0,0,0,0,1},
-            {0,1,1,1,1},
-            {0,0,0,0,1},
-            {1,1,1,1,1}
-        },
-        { // Número 4
-            {1,0,0,0,1},
-            {1,0,0,0,1},
-            {1,1,1,1,1},
-            {0,0,0,0,1},
-            {0,0,0,0,1}
-        },
-        { // Número 5
-            {1,1,1,1,1},
-            {1,0,0,0,0},
-            {1,1,1,1,1},
-            {0,0,0,0,1},
-            {1,1,1,1,1}
-        },
-        { // Número 6
-            {1,1,1,1,1},
-            {1,0,0,0,0},
-            {1,1,1,1,1},
-            {1,0,0,0,1},
-            {1,1,1,1,1}
-        },
-        { // Número 7
-            {1,1,1,1,1},
-            {0,0,0,0,1},
+            {0,0,1,0,1},
             {0,0,1,1,0},
-            {0,0,1,0,0},
             {0,0,1,0,0}
         },
-        { // Número 8
+        { // Número 2 invertido
+            {1,1,1,1,1},
+            {0,0,0,0,1},
+            {1,1,1,1,1},
+            {1,0,0,0,0},
+            {1,1,1,1,1}
+        },
+        { // Número 3 invertido
+            {1,1,1,1,1},
+            {1,0,0,0,0},
+            {1,1,1,1,0},
+            {1,0,0,0,0},
+            {1,1,1,1,1}
+        },
+        { // Número 4 invertido
+            {1,0,0,0,0},
+            {1,0,0,0,0},
+            {1,1,1,1,1},
+            {1,0,0,0,1},
+            {1,0,0,0,1}
+        },
+        { // Número 5 invertido
+            {1,1,1,1,1},
+            {1,0,0,0,0},
+            {1,1,1,1,1},
+            {0,0,0,0,1},
+            {1,1,1,1,1}
+        },
+        { // Número 6 invertido
+            {1,1,1,1,1},
+            {1,0,0,0,1},
+            {1,1,1,1,1},
+            {0,0,0,0,1},
+            {1,1,1,1,1}
+        },
+        { // Número 7 invertido
+            {0,0,1,0,0},
+            {0,0,1,0,0},
+            {0,1,1,0,0},
+            {1,0,0,0,0},
+            {1,1,1,1,1}
+        },
+        { // Número 8 invertido
             {1,1,1,1,1},
             {1,0,0,0,1},
             {1,1,1,1,1},
             {1,0,0,0,1},
             {1,1,1,1,1}
         },
-        { // Número 9
+        { // Número 9 invertido
+            {1,1,1,1,1},
+            {1,0,0,0,0},
             {1,1,1,1,1},
             {1,0,0,0,1},
-            {1,1,1,1,1},
-            {0,0,0,0,1},
             {1,1,1,1,1}
         }
     };
@@ -184,9 +184,9 @@ void config_preset() {
     while (true) {
         adc_select_input(0);
         uint16_t eixo_y = adc_read();
-        if (eixo_y > 3000 && contador < 20) contador++;
-        if (eixo_y < 1000 && contador > 1) contador--;
-        if (gpio_get(BUTTON_B) == 0) break;
+        if (eixo_y < 1000 && contador < 20) contador++;
+        if (eixo_y > 3000 && contador > 1) contador--;
+        if (gpio_get(BUTTON_A) == 0) break;
         char buffer[20];
         sprintf(buffer, "Total de\nPresets:\n  >%d", contador);
         atualizar_display(buffer);
@@ -211,10 +211,10 @@ void config_preset() {
         
             adc_select_input(0);
             uint16_t eixo_y = adc_read();
-            if (eixo_y > 3000 && bpm < 300) bpm++;
-            else if (eixo_y < 1000 && bpm > 1) bpm--;
+            if (eixo_y < 1000 && bpm < 300) bpm++;
+            else if (eixo_y > 3000 && bpm > 1) bpm--;
             
-            if (gpio_get(BUTTON_B) == 0) {
+            if (gpio_get(BUTTON_A) == 0) {
                 while (true) {
                     char buffer[30];
                     if (i <= 9){
@@ -228,10 +228,10 @@ void config_preset() {
                 
                     adc_select_input(0);
                     uint16_t eixo_y = adc_read();
-                    if (eixo_y > 3000 && beats < 9) beats++;
-                    else if (eixo_y < 1000 && beats > 2) beats--;
+                    if (eixo_y < 1000 && beats < 9) beats++;
+                    else if (eixo_y > 3000 && beats > 2) beats--;
 
-                    if (gpio_get(BUTTON_B) == 0) break;
+                    if (gpio_get(BUTTON_A) == 0) break;
                 }
                 break;
             }
@@ -271,10 +271,15 @@ bool debounce(uint gpio) {
 // Função de interrupção chamada ao apertar os botões
 void isr_botoes(uint gpio, uint32_t events) {
     if (debounce(gpio)) {
-        if (gpio == BUTTON_A && metronome_running == true) {
+        if (gpio == JOYSTICK_BUTTON && metronome_running == true) {
             paused = !paused;
-        } else if (gpio == JOYSTICK_BUTTON && metronome_running == true) {
+        } else if (gpio == BUTTON_A && metronome_running == true) {
             current_bpm_index = (current_bpm_index + 1) % bpm_count;
+        } else if (gpio == BUTTON_B && metronome_running == true) {
+            if (current_bpm_index == 0)
+                current_bpm_index = bpm_count - 1;
+            else
+                current_bpm_index--;
         }
     }
 }
@@ -341,6 +346,7 @@ void setup() {
     gpio_pull_up(JOYSTICK_BUTTON);
     
     gpio_set_irq_enabled_with_callback(BUTTON_A, GPIO_IRQ_EDGE_FALL, true, &isr_botoes);
+    gpio_set_irq_enabled_with_callback(BUTTON_B, GPIO_IRQ_EDGE_FALL, true, &isr_botoes);
     gpio_set_irq_enabled_with_callback(JOYSTICK_BUTTON, GPIO_IRQ_EDGE_FALL, true, &isr_botoes);
     
     gpio_init(LED_RED);
