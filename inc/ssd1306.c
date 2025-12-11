@@ -69,8 +69,14 @@ void ssd1306_send_data(ssd1306_t *ssd) {
 }
 
 void ssd1306_pixel(ssd1306_t *ssd, uint8_t x, uint8_t y, bool value) {
+  // Rotaciona 180° (inverte coordenadas)
+  x = ssd->width  - 1 - x;
+  y = ssd->height - 1 - y;
   uint16_t index = (y >> 3) + (x << 3) + 1;
   uint8_t pixel = (y & 0b111);
+
+  //uint16_t index = (y >> 3) + (x << 3) + 1;
+  //uint8_t pixel = (y & 0b111);
   if (value)
     ssd->ram_buffer[index] |= (1 << pixel);
   else
