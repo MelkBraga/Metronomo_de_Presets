@@ -1,1 +1,1 @@
-O programa está documentado no arquivo PDF anexado ao repositório. Dentro do arquivo, há um link para um vídeo de demonstração.
+O programa está documentado no Trabalho de Conclusão de Curso, anexado ao repositório em formato PDF. A configuração da BitDogLab no VS Code pode ser realizada seguindo os passos descritos no documento “Como configurar a BitDogLab”, também anexado em formato PDF ao repositório.
